@@ -1,13 +1,15 @@
-﻿using Prism.Commands;
+﻿using GongSolutions.Wpf.DragDrop;
+using Prism.Commands;
 using Prism.Mvvm;
 using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Windows;
 
 namespace TkmNotepad.ViewModels
 {
-  public class MainWindowViewModel : BindableBase
+  public class MainWindowViewModel : BindableBase, IDropTarget
 	{
 		#region Field / Property
 		private string _title = String.Empty;
@@ -35,7 +37,7 @@ namespace TkmNotepad.ViewModels
 		#region Constructor
 		public MainWindowViewModel()
 		{
-		}
+    }
 		#endregion
 
 		#region Command
@@ -49,9 +51,6 @@ namespace TkmNotepad.ViewModels
 						() =>
 						{
 							this.Title = $"{Path.GetFileNameWithoutExtension(this.GetType().Assembly.Location)} Ver.{Assembly.GetExecutingAssembly().GetName().Version}";
-
-							// 暫定読み込み
-							this.LoadFileCommand.Execute(@"C:\Temp\DevTest.txt");
 						}
 					)
 				);
@@ -101,16 +100,31 @@ namespace TkmNotepad.ViewModels
 						{
 							try
 							{
+								if (String.IsNullOrEmpty(path) || !File.Exists(path))
+									return;
 
-								using (var stream = new StreamReader(path, true))
+								//
+								//@ 既存読み込み分の変更確認
+								//
+
+								// ファイル読み込み
+								var fullPath = Path.GetFullPath(path);
+								using (var stream = new StreamReader(fullPath, true))
 								{
 									this.CurrentInputText = stream.ReadToEnd();
 								}
 
-								this.CurrentFilePath = Path.GetFullPath(path);
+								this.CurrentFilePath = fullPath;
+								this.Title = fullPath;
 							}
 							catch (Exception e)
 							{
+								MessageBox.Show(
+									$"Message={e.Message}",
+									"Error", MessageBoxButton.OK, MessageBoxImage.Error
+								);
+
+								Environment.Exit(1);
 							}
 						},
 						(path) =>
@@ -140,6 +154,26 @@ namespace TkmNotepad.ViewModels
 					.ObservesProperty(() => !String.IsNullOrEmpty(this.CurrentFilePath))
 				);
 			}
+		}
+		#endregion
+
+		#region IDropTarget
+		public void DragOver(IDropInfo dropInfo)
+		{
+			var files = ((DataObject)dropInfo.Data).GetFileDropList().Cast<string>();
+			dropInfo.Effects = files.Any(name => name.EndsWith(".txt", StringComparison.OrdinalIgnoreCase)) ? DragDropEffects.Copy : DragDropEffects.None;
+		}
+
+		public void Drop(IDropInfo dropInfo)
+		{
+			var files = ((DataObject)dropInfo.Data).GetFileDropList().Cast<string>().Where(name => name.EndsWith(".txt", StringComparison.OrdinalIgnoreCase)).ToList();
+
+			if (files.Count == 0)
+				return;
+
+			var file = files[0]; // 1ファイルのみ有効
+			if (this.LoadFileCommand.CanExecute(file))
+				this.LoadFileCommand.Execute(file);
 		}
 		#endregion
 

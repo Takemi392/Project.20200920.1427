@@ -5,6 +5,7 @@
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:prism="http://prismlibrary.com/"
+        xmlns:dd="urn:gong-wpf-dragdrop"
         xmlns:l="clr-namespace:TkmNotepad"
         xmlns:v="clr-namespace:TkmNotepad.Views"
         xmlns:vm="clr-namespace:TkmNotepad.ViewModels"
@@ -36,6 +37,7 @@
                  VerticalContentAlignment="Top" HorizontalContentAlignment="Left"
                  VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible"
                  Background="Black" Foreground="#00AA00" FontSize="12"
-                 Text="{Binding CurrentInputText}" />
+                 Text="{Binding CurrentInputText}"
+                 dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}" />
     </DockPanel>
 </Window>
