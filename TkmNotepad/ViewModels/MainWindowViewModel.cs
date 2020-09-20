@@ -2,6 +2,7 @@
 using Prism.Mvvm;
 using System;
 using System.IO;
+using System.Windows;
 
 namespace TkmNotepad.ViewModels
 {
@@ -83,6 +84,8 @@ namespace TkmNotepad.ViewModels
 					_closingCommand = new DelegateCommand(
 						() =>
 						{
+							// 仮表示
+							var r = MessageBox.Show("閉じますか", "確認", MessageBoxButton.YesNo);
 						}
 					)
 				);
