@@ -23,6 +23,14 @@
             <i:InvokeCommandAction Command="{Binding CloseingCommand}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    <Grid>
-    </Grid>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="File">
+            </MenuItem>
+            <MenuItem Header="Help">
+                <MenuItem Header="Version" />
+            </MenuItem>
+        </Menu>
+        <TextBox DockPanel.Dock="Top" Background="Black" Foreground="#00AA00" FontSize="12" />
+    </DockPanel>
 </Window>
