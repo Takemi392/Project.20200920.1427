@@ -2,14 +2,15 @@
 using Prism.Mvvm;
 using System;
 using System.IO;
+using System.Reflection;
 using System.Windows;
 
 namespace TkmNotepad.ViewModels
 {
-	public class MainWindowViewModel : BindableBase
+  public class MainWindowViewModel : BindableBase
 	{
 		#region Field / Property
-		private string _title = "TkmNotepad";
+		private string _title = String.Empty;
 		public string Title
 		{
 			get { return _title; }
@@ -47,10 +48,7 @@ namespace TkmNotepad.ViewModels
 					_loadedCommand = new DelegateCommand(
 						() =>
 						{
-              this.Title = String.Format("{0} Ver.{1}",
-                System.IO.Path.GetFileNameWithoutExtension(this.GetType().Assembly.Location),
-                System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()
-              );
+							this.Title = $"{Path.GetFileNameWithoutExtension(this.GetType().Assembly.Location)} Ver.{Assembly.GetExecutingAssembly().GetName().Version}";
 
 							// 暫定読み込み
 							this.LoadFileCommand.Execute(@"C:\Temp\DevTest.txt");
