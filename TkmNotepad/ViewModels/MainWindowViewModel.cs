@@ -1,6 +1,7 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
 using System;
+using System.IO;
 
 namespace TkmNotepad.ViewModels
 {
@@ -13,10 +14,17 @@ namespace TkmNotepad.ViewModels
 			get { return _title; }
 			set { SetProperty(ref _title, value); }
 		}
-		#endregion
 
-		#region Constructor
-		public MainWindowViewModel()
+		private string _filePath = String.Empty;
+		public string FilePath
+		{
+			get { return _filePath; }
+			set { SetProperty(ref _filePath, value); }
+		}
+    #endregion
+
+    #region Constructor
+    public MainWindowViewModel()
 		{
 		}
 		#endregion
