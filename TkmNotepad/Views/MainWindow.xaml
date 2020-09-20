@@ -1,9 +1,28 @@
 ﻿<Window x:Class="TkmNotepad.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:prism="http://prismlibrary.com/"
+        xmlns:l="clr-namespace:TkmNotepad"
+        xmlns:v="clr-namespace:TkmNotepad.Views"
+        xmlns:vm="clr-namespace:TkmNotepad.ViewModels"
         prism:ViewModelLocator.AutoWireViewModel="True"
-        Title="{Binding Title}" Height="350" Width="525">
+        mc:Ignorable="d" d:DesignWidth="960" d:DesignHeight="540"
+        d:DataContext="{d:DesignInstance vm:MainWindowViewModel}"
+        Title="{Binding Title}">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Closed">
+            <i:InvokeCommandAction Command="{Binding ClosedCommand}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Closed">
+            <i:InvokeCommandAction Command="{Binding CloseingCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
     </Grid>
 </Window>

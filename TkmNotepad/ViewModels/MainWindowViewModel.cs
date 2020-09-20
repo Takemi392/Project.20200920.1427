@@ -31,11 +31,11 @@ namespace TkmNotepad.ViewModels
 					_loadedCommand = new DelegateCommand(
 						() =>
 						{
-							this.Title = String.Format("{0} Ver.{1}",
-								System.IO.Path.GetFileNameWithoutExtension(this.GetType().Assembly.Location),
-								System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()
-							);
-						}
+              this.Title = String.Format("{0} Ver.{1}",
+                System.IO.Path.GetFileNameWithoutExtension(this.GetType().Assembly.Location),
+                System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()
+              );
+            }
 					)
 				);
 			}
