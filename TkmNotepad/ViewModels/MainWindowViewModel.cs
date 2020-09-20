@@ -15,11 +15,11 @@ namespace TkmNotepad.ViewModels
 			set { SetProperty(ref _title, value); }
 		}
 
-		private string _filePath = String.Empty;
-		public string FilePath
+		private string _currentFilePath = String.Empty;
+		public string CurrentFilePath
 		{
-			get { return _filePath; }
-			set { SetProperty(ref _filePath, value); }
+			get { return _currentFilePath; }
+			set { SetProperty(ref _currentFilePath, value); }
 		}
 
 		private string _currentInputText = String.Empty;
@@ -51,6 +51,7 @@ namespace TkmNotepad.ViewModels
                 System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()
               );
 
+							// 暫定読み込み
 							this.LoadFileCommand.Execute(@"C:\Temp\DevTest.txt");
 						}
 					)
@@ -99,14 +100,21 @@ namespace TkmNotepad.ViewModels
 						{
 							try
 							{
+
 								using (var stream = new StreamReader(path, true))
 								{
 									this.CurrentInputText = stream.ReadToEnd();
 								}
+
+								this.CurrentFilePath = Path.GetFullPath(path);
 							}
-							catch (Exception)
+							catch (Exception e)
 							{
 							}
+						},
+						(path) =>
+						{
+							return true;
 						}
 					)
 				);
@@ -122,8 +130,13 @@ namespace TkmNotepad.ViewModels
 					_saveFileCommand = new DelegateCommand(
 						() =>
 						{
+						},
+						() =>
+						{
+							return true;
 						}
 					)
+					.ObservesProperty(() => !String.IsNullOrEmpty(this.CurrentFilePath))
 				);
 			}
 		}
