@@ -34,7 +34,7 @@
         <TextBox DockPanel.Dock="Top" AcceptsReturn="True" TextWrapping="NoWrap"
                  VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
                  VerticalContentAlignment="Top" HorizontalContentAlignment="Left"
-                 VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible"
+                 VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
                  Background="Black" Foreground="#00AA00" FontSize="12"
                  Text="{Binding CurrentInputText}" />
     </DockPanel>
