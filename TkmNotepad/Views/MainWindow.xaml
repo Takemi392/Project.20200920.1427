@@ -31,10 +31,11 @@
                 <MenuItem Header="Version" />
             </MenuItem>
         </Menu>
-        <TextBox DockPanel.Dock="Top" AcceptsReturn="True"
+        <TextBox DockPanel.Dock="Top" AcceptsReturn="True" TextWrapping="NoWrap"
                  VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
                  VerticalContentAlignment="Top" HorizontalContentAlignment="Left"
                  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
-                 Background="Black" Foreground="#00AA00" FontSize="12" />
+                 Background="Black" Foreground="#00AA00" FontSize="12"
+                 Text="{Binding CurrentInputText}" />
     </DockPanel>
 </Window>

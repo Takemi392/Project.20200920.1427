@@ -21,10 +21,17 @@ namespace TkmNotepad.ViewModels
 			get { return _filePath; }
 			set { SetProperty(ref _filePath, value); }
 		}
-    #endregion
 
-    #region Constructor
-    public MainWindowViewModel()
+		private string _currentInputText = String.Empty;
+		public string CurrentInputText
+		{
+			get { return _currentInputText; }
+			set { SetProperty(ref _currentInputText, value); }
+		}
+		#endregion
+
+		#region Constructor
+		public MainWindowViewModel()
 		{
 		}
 		#endregion
@@ -43,7 +50,9 @@ namespace TkmNotepad.ViewModels
                 System.IO.Path.GetFileNameWithoutExtension(this.GetType().Assembly.Location),
                 System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()
               );
-            }
+
+							this.LoadFileCommand.Execute(@"C:\Temp\DevTest.txt");
+						}
 					)
 				);
 			}
@@ -79,15 +88,25 @@ namespace TkmNotepad.ViewModels
 			}
 		}
 
-		private DelegateCommand _loadFileCommand;
-		public DelegateCommand LoadFileCommand
+		private DelegateCommand<string> _loadFileCommand;
+		public DelegateCommand<string> LoadFileCommand
 		{
 			get
 			{
 				return _loadFileCommand ?? (
-					_loadFileCommand = new DelegateCommand(
-						() =>
+					_loadFileCommand = new DelegateCommand<string>(
+						(path) =>
 						{
+							try
+							{
+								using (var stream = new StreamReader(path, true))
+								{
+									this.CurrentInputText = stream.ReadToEnd();
+								}
+							}
+							catch (Exception)
+							{
+							}
 						}
 					)
 				);
