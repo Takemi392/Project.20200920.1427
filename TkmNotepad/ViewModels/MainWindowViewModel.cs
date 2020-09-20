@@ -2,18 +2,18 @@
 
 namespace TkmNotepad.ViewModels
 {
-    public class MainWindowViewModel : BindableBase
+  public class MainWindowViewModel : BindableBase
+  {
+    private string _title = "Prism Application";
+    public string Title
     {
-        private string _title = "Prism Application";
-        public string Title
-        {
-            get { return _title; }
-            set { SetProperty(ref _title, value); }
-        }
-
-        public MainWindowViewModel()
-        {
-
-        }
+      get { return _title; }
+      set { SetProperty(ref _title, value); }
     }
+
+    public MainWindowViewModel()
+    {
+
+    }
+  }
 }
