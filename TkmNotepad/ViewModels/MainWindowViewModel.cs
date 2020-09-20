@@ -73,13 +73,13 @@ namespace TkmNotepad.ViewModels
 			}
 		}
 
-		private DelegateCommand _closeingCommand;
-		public DelegateCommand CloseingCommand
+		private DelegateCommand _closingCommand;
+		public DelegateCommand ClosingCommand
 		{
 			get
 			{
-				return _closeingCommand ?? (
-					_closeingCommand = new DelegateCommand(
+				return _closingCommand ?? (
+					_closingCommand = new DelegateCommand(
 						() =>
 						{
 						}
