@@ -1,19 +1,78 @@
-﻿using Prism.Mvvm;
+﻿using Prism.Commands;
+using Prism.Mvvm;
+using System;
 
 namespace TkmNotepad.ViewModels
 {
-  public class MainWindowViewModel : BindableBase
-  {
-    private string _title = "Prism Application";
-    public string Title
-    {
-      get { return _title; }
-      set { SetProperty(ref _title, value); }
-    }
+	public class MainWindowViewModel : BindableBase
+	{
+		#region Field / Property
+		private string _title = "TkmNotepad";
+		public string Title
+		{
+			get { return _title; }
+			set { SetProperty(ref _title, value); }
+		}
+		#endregion
 
-    public MainWindowViewModel()
-    {
+		#region Constructor
+		public MainWindowViewModel()
+		{
+		}
+		#endregion
 
-    }
-  }
+		#region Command
+		private DelegateCommand _loadedCommand;
+		public DelegateCommand LoadedCommand
+		{
+			get
+			{
+				return _loadedCommand ?? (
+					_loadedCommand = new DelegateCommand(
+						() =>
+						{
+							this.Title = String.Format("{0} Ver.{1}",
+								System.IO.Path.GetFileNameWithoutExtension(this.GetType().Assembly.Location),
+								System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()
+							);
+						}
+					)
+				);
+			}
+		}
+
+		private DelegateCommand _closedCommand;
+		public DelegateCommand ClosedCommand
+		{
+			get
+			{
+				return _closedCommand ?? (
+					_closedCommand = new DelegateCommand(
+						() =>
+						{
+						}
+					)
+				);
+			}
+		}
+
+		private DelegateCommand _closeingCommand;
+		public DelegateCommand CloseingCommand
+		{
+			get
+			{
+				return _closeingCommand ?? (
+					_closeingCommand = new DelegateCommand(
+						() =>
+						{
+						}
+					)
+				);
+			}
+		}
+		#endregion
+
+		#region Method
+		#endregion
+	}
 }
