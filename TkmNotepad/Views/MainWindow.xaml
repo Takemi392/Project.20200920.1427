@@ -31,6 +31,10 @@
                 <MenuItem Header="Version" />
             </MenuItem>
         </Menu>
-        <TextBox DockPanel.Dock="Top" Background="Black" Foreground="#00AA00" FontSize="12" />
+        <TextBox DockPanel.Dock="Top" AcceptsReturn="True"
+                 VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                 VerticalContentAlignment="Top" HorizontalContentAlignment="Left"
+                 VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
+                 Background="Black" Foreground="#00AA00" FontSize="12" />
     </DockPanel>
 </Window>
