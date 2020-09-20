@@ -78,6 +78,36 @@ namespace TkmNotepad.ViewModels
 				);
 			}
 		}
+
+		private DelegateCommand _loadFileCommand;
+		public DelegateCommand LoadFileCommand
+		{
+			get
+			{
+				return _loadFileCommand ?? (
+					_loadFileCommand = new DelegateCommand(
+						() =>
+						{
+						}
+					)
+				);
+			}
+		}
+
+		private DelegateCommand _saveFileCommand;
+		public DelegateCommand SaveFileCommand
+		{
+			get
+			{
+				return _saveFileCommand ?? (
+					_saveFileCommand = new DelegateCommand(
+						() =>
+						{
+						}
+					)
+				);
+			}
+		}
 		#endregion
 
 		#region Method
