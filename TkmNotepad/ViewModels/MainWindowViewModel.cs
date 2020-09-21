@@ -1,6 +1,7 @@
 ﻿using GongSolutions.Wpf.DragDrop;
 using Prism.Commands;
 using Prism.Mvvm;
+using Prism.Services.Dialogs;
 using System;
 using System.IO;
 using System.Linq;
@@ -25,11 +26,14 @@ namespace TkmNotepad.ViewModels
 			get { return _currentFileInfoViewModel; }
 			set { SetProperty(ref _currentFileInfoViewModel, value); }
 		}
+
+		public Window Owner { get; } = null;
 		#endregion
 
 		#region Constructor
-		public MainWindowViewModel()
+		public MainWindowViewModel(Window owner)
 		{
+			this.Owner = owner;
 		}
 		#endregion
 
@@ -156,6 +160,7 @@ namespace TkmNotepad.ViewModels
 				if (this.CurrentFileInfoViewModel.IsTextChanged)
 				{
 					var r = MessageBox.Show(
+						this.Owner,
 						$"{this.CurrentFileInfoViewModel.FilePath}への変更内容を保存しますか？",
 						"確認",
 						MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.Yes

@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using TkmNotepad.ViewModels;
 
 namespace TkmNotepad.Views
 {
@@ -10,6 +11,7 @@ namespace TkmNotepad.Views
     public MainWindow()
     {
       this.InitializeComponent();
+      this.DataContext = new MainWindowViewModel(this);
     }
   }
 }
