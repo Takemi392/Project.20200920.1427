@@ -32,7 +32,7 @@
                 <MenuItem Header="Version" />
             </MenuItem>
         </Menu>
-        <TextBox DockPanel.Dock="Top" AcceptsReturn="True" TextWrapping="NoWrap"
+        <TextBox DockPanel.Dock="Top" AcceptsReturn="True" AcceptsTab="True" TextWrapping="NoWrap"
                  VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
                  VerticalContentAlignment="Top" HorizontalContentAlignment="Left"
                  VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible"
