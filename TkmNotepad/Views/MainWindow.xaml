@@ -37,7 +37,7 @@
                  VerticalContentAlignment="Top" HorizontalContentAlignment="Left"
                  VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible"
                  Background="Black" Foreground="#00AA00" FontSize="12"
-                 Text="{Binding CurrentInputText}"
+                 Text="{Binding CurrentFileInfoViewModel.CurrentText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}" />
     </DockPanel>
 </Window>
