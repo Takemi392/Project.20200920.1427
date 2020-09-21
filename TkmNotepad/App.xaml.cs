@@ -1,7 +1,6 @@
-﻿using TkmNotepad.Views;
-using Prism.Ioc;
-using Prism.Modularity;
+﻿using Prism.Ioc;
 using System.Windows;
+using TkmNotepad.Views;
 
 namespace TkmNotepad
 {
@@ -17,7 +16,6 @@ namespace TkmNotepad
 
     protected override void RegisterTypes(IContainerRegistry containerRegistry)
     {
-
     }
   }
 }
