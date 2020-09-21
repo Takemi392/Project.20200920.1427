@@ -9,18 +9,22 @@ namespace TkmNotepad.ViewModels
   public class FileInfoViewModel : BindableBase
 	{
 		#region Field / Property
-		private string _currentPath = String.Empty;
-		public string CurrentPath
+		private string _filePath = String.Empty;
+		public string FilePath
 		{
-			get { return _currentPath; }
-			set { SetProperty(ref _currentPath, value); }
+			get { return _filePath; }
+			set { SetProperty(ref _filePath, value); }
 		}
 
 		private string _currentText = String.Empty;
 		public string CurrentText
 		{
 			get { return _currentText; }
-			set { SetProperty(ref _currentText, value); }
+			set
+			{
+				SetProperty(ref _currentText, value);
+				this.IsTextChanged = true;
+			}
 		}
 
 		private string _lastSavedText = String.Empty;
@@ -28,6 +32,13 @@ namespace TkmNotepad.ViewModels
 		{
 			get { return _lastSavedText; }
 			set { SetProperty(ref _lastSavedText, value); }
+		}
+
+		private bool _isTextChanged = false;
+		public bool IsTextChanged
+		{
+			get { return _isTextChanged; }
+			set { SetProperty(ref _isTextChanged, value); }
 		}
 		#endregion
 
@@ -54,9 +65,10 @@ namespace TkmNotepad.ViewModels
 
 								this.LastSavedText = data;
 								this.CurrentText = data;
+								this.IsTextChanged = false;
 							}
 
-              this.CurrentPath = fullPath;
+							this.FilePath = fullPath;
 						}
 					)
 				);
@@ -79,8 +91,9 @@ namespace TkmNotepad.ViewModels
 							//
 							Debug.WriteLine("新規");
 							this.LastSavedText = this.CurrentText;
+							this.IsTextChanged = false;
 
-							this.CurrentPath = fullPath;
+							this.FilePath = fullPath;
 						}
 					)
 				);
@@ -101,22 +114,16 @@ namespace TkmNotepad.ViewModels
 							//
 							Debug.WriteLine("上書き");
 							this.LastSavedText = this.CurrentText;
+							this.IsTextChanged = false;
 						},
 						() =>
 						{
-							return !String.IsNullOrEmpty(this.CurrentPath);
+							return !String.IsNullOrEmpty(this.FilePath);
 						}
 					)
-					.ObservesProperty(() => this.CurrentPath)
+					.ObservesProperty(() => this.FilePath)
 				);
 			}
-		}
-		#endregion
-
-		#region Method
-		public bool IsTextChanged()
-		{
-			return this.CurrentText != this.LastSavedText;
 		}
 		#endregion
 	}
