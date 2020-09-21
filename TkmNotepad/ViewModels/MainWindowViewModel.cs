@@ -27,7 +27,7 @@ namespace TkmNotepad.ViewModels
 			set { SetProperty(ref _currentFileInfoViewModel, value); }
 		}
 
-		public Window Owner { get; } = null;
+		private Window Owner { get; } = null;
 		#endregion
 
 		#region Constructor
