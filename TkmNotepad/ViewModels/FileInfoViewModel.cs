@@ -2,7 +2,6 @@
 using Prism.Mvvm;
 using System;
 using System.Diagnostics;
-using System.IO;
 
 namespace TkmNotepad.ViewModels
 {
@@ -58,9 +57,9 @@ namespace TkmNotepad.ViewModels
 					_loadCommand = new DelegateCommand<string>(
 						(path) =>
 						{
-              var fullPath = Path.GetFullPath(path);
-              using (var stream = new StreamReader(fullPath, true))
-              {
+							var fullPath = System.IO.Path.GetFullPath(path);
+							using (var stream = new System.IO.StreamReader(fullPath, true))
+							{
 								var data = stream.ReadToEnd();
 
 								this.LastSavedText = data;
@@ -84,7 +83,7 @@ namespace TkmNotepad.ViewModels
 					_saveCommand = new DelegateCommand<string>(
 						(path) =>
 						{
-							var fullPath = Path.GetFullPath(path);
+							var fullPath = System.IO.Path.GetFullPath(path);
 
 							//
 							//@ 書き込み, 安全のため未実装
