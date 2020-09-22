@@ -159,13 +159,13 @@ namespace TkmNotepad.ViewModels
       }
     }
 
-    private DelegateCommand _saveFileCommand;
-    public DelegateCommand SaveFileCommand
+    private DelegateCommand _overwriteFileCommand;
+    public DelegateCommand OverwriteFileCommand
     {
       get
       {
-        return _saveFileCommand ?? (
-          _saveFileCommand = new DelegateCommand(
+        return _overwriteFileCommand ?? (
+          _overwriteFileCommand = new DelegateCommand(
             () =>
             {
             }
@@ -174,13 +174,13 @@ namespace TkmNotepad.ViewModels
       }
     }
 
-    private DelegateCommand _overwriteFileCommand;
-    public DelegateCommand OverwriteFileCommand
+    private DelegateCommand _saveFileCommand;
+    public DelegateCommand SaveFileCommand
     {
       get
       {
-        return _overwriteFileCommand ?? (
-          _overwriteFileCommand = new DelegateCommand(
+        return _saveFileCommand ?? (
+          _saveFileCommand = new DelegateCommand(
             () =>
             {
             }
