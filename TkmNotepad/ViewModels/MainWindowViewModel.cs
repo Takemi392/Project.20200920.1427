@@ -75,7 +75,8 @@ namespace TkmNotepad.ViewModels
                 System.Reflection.Assembly.GetExecutingAssembly().GetName().Version
               );
 
-              this.LoadDesignSettingsCommand.Execute();
+              if (this.LoadDesignSettingsCommand.CanExecute())
+                this.LoadDesignSettingsCommand.Execute();
             }
           )
         );
