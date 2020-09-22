@@ -25,10 +25,17 @@
     </i:Interaction.Triggers>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
-            <MenuItem Header="File">
+            <MenuItem Header="ファイル">
+                <MenuItem Header="新規" />
+                <MenuItem Header="新しいウインドウ" />
+                <MenuItem Header="開く" />
+                <MenuItem Header="上書き保存" />
+                <MenuItem Header="名前を付けて保存" />
+                <Separator />
+                <MenuItem Header="終了" />
             </MenuItem>
-            <MenuItem Header="Help">
-                <MenuItem Header="Version" />
+            <MenuItem Header="ヘルプ">
+                <MenuItem Header="バージョン情報" />
             </MenuItem>
         </Menu>
         <TextBox DockPanel.Dock="Top" AcceptsReturn="True" AcceptsTab="True" TextWrapping="NoWrap"
