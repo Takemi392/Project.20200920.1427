@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Media;
+using System.Xml;
 using TkmNotepad.Models;
 
 namespace TkmNotepad.ViewModels
@@ -197,6 +198,7 @@ namespace TkmNotepad.ViewModels
           _applicationEndCommand = new DelegateCommand(
             () =>
             {
+              this.WindowObject.Close();
             }
           )
         );
