@@ -2,6 +2,7 @@
 using Prism.Mvvm;
 using System;
 using System.Diagnostics;
+using System.Text;
 
 namespace TkmNotepad.ViewModels
 {
@@ -13,6 +14,13 @@ namespace TkmNotepad.ViewModels
 		{
 			get { return _filePath; }
 			set { SetProperty(ref _filePath, value); }
+		}
+
+		private Encoding _currentEncoding = Encoding.UTF8;
+		public Encoding CurrentEncoding
+		{
+			get { return _currentEncoding; }
+			set { SetProperty(ref _currentEncoding, value); }
 		}
 
 		private string _currentText = String.Empty;
@@ -62,6 +70,7 @@ namespace TkmNotepad.ViewModels
 							{
 								var data = stream.ReadToEnd();
 
+								this.CurrentEncoding = stream.CurrentEncoding;
 								this.LastSavedText = data;
 								this.CurrentText = data;
 								this.IsTextChanged = false;
@@ -84,11 +93,11 @@ namespace TkmNotepad.ViewModels
 						(path) =>
 						{
 							var fullPath = System.IO.Path.GetFullPath(path);
+							using (var stream = new System.IO.StreamWriter(fullPath, false, this.CurrentEncoding))
+							{
+								stream.Write(this.CurrentText);
+							}
 
-							//
-							//@ 書き込み, 安全のため未実装
-							//
-							Debug.WriteLine("新規");
 							this.LastSavedText = this.CurrentText;
 							this.IsTextChanged = false;
 
@@ -108,10 +117,11 @@ namespace TkmNotepad.ViewModels
 					_overwriteCommand = new DelegateCommand(
 						() =>
 						{
-							//
-							//@ 書き込み, 安全のため未実装
-							//
-							Debug.WriteLine("上書き");
+							using (var stream = new System.IO.StreamWriter(this.FilePath, false, this.CurrentEncoding))
+							{
+								stream.Write(this.CurrentText);
+							}
+
 							this.LastSavedText = this.CurrentText;
 							this.IsTextChanged = false;
 						},
