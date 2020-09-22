@@ -159,15 +159,14 @@ namespace TkmNotepad.ViewModels
     public void DragOver(GongSolutions.Wpf.DragDrop.IDropInfo dropInfo)
     {
       var files = ((DataObject)dropInfo.Data).GetFileDropList().Cast<string>();
-      dropInfo.Effects = files.Any(name => name.EndsWith(".txt", StringComparison.OrdinalIgnoreCase)) ? DragDropEffects.Copy : DragDropEffects.None;
+      dropInfo.Effects = files.Any(name => System.IO.File.Exists(name)) ? DragDropEffects.Copy : DragDropEffects.None;
     }
 
     public void Drop(GongSolutions.Wpf.DragDrop.IDropInfo dropInfo)
     {
       try
       {
-        var files = ((DataObject)dropInfo.Data).GetFileDropList().Cast<string>().Where(name => name.EndsWith(".txt", StringComparison.OrdinalIgnoreCase)).ToList();
-
+        var files = ((DataObject)dropInfo.Data).GetFileDropList().Cast<string>().Where(name => System.IO.File.Exists(name)).ToList();
         if (files.Count == 0)
           return;
 
