@@ -188,6 +188,21 @@ namespace TkmNotepad.ViewModels
       }
     }
 
+    private DelegateCommand _applicationEndCommand;
+    public DelegateCommand ApplicationEndCommand
+    {
+      get
+      {
+        return _applicationEndCommand ?? (
+          _applicationEndCommand = new DelegateCommand(
+            () =>
+            {
+            }
+          )
+        );
+      }
+    }
+
     private DelegateCommand _loadDesignSettingsCommand;
     public DelegateCommand LoadDesignSettingsCommand
     {
