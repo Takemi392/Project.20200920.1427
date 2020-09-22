@@ -144,13 +144,13 @@ namespace TkmNotepad.ViewModels
       }
     }
 
-    private DelegateCommand _loadFileCommand;
-    public DelegateCommand LoadFileCommand
+    private DelegateCommand _openFileCommand;
+    public DelegateCommand OpenFileCommand
     {
       get
       {
-        return _loadFileCommand ?? (
-          _loadFileCommand = new DelegateCommand(
+        return _openFileCommand ?? (
+          _openFileCommand = new DelegateCommand(
             () =>
             {
             }
