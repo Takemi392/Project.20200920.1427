@@ -113,6 +113,81 @@ namespace TkmNotepad.ViewModels
       }
     }
 
+    private DelegateCommand _createNewFile;
+    public DelegateCommand CreateNewFile
+    {
+      get
+      {
+        return _createNewFile ?? (
+          _createNewFile = new DelegateCommand(
+            () =>
+            {
+            }
+          )
+        );
+      }
+    }
+
+    private DelegateCommand _createNewFileWithWindow;
+    public DelegateCommand CreateNewFileWithWindow
+    {
+      get
+      {
+        return _createNewFileWithWindow ?? (
+          _createNewFileWithWindow = new DelegateCommand(
+            () =>
+            {
+            }
+          )
+        );
+      }
+    }
+
+    private DelegateCommand _loadFileCommand;
+    public DelegateCommand LoadFileCommand
+    {
+      get
+      {
+        return _loadFileCommand ?? (
+          _loadFileCommand = new DelegateCommand(
+            () =>
+            {
+            }
+          )
+        );
+      }
+    }
+
+    private DelegateCommand _saveFileCommand;
+    public DelegateCommand SaveFileCommand
+    {
+      get
+      {
+        return _saveFileCommand ?? (
+          _saveFileCommand = new DelegateCommand(
+            () =>
+            {
+            }
+          )
+        );
+      }
+    }
+
+    private DelegateCommand _overwriteFileCommand;
+    public DelegateCommand OverwriteFileCommand
+    {
+      get
+      {
+        return _overwriteFileCommand ?? (
+          _overwriteFileCommand = new DelegateCommand(
+            () =>
+            {
+            }
+          )
+        );
+      }
+    }
+
     private DelegateCommand _loadDesignSettingsCommand;
     public DelegateCommand LoadDesignSettingsCommand
     {
