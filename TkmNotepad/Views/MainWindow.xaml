@@ -23,14 +23,21 @@
             <i:InvokeCommandAction Command="{Binding ClosingCommand}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding CreateNewFile}" Gesture="Ctrl+N" />
+        <KeyBinding Command="{Binding CreateNewFileWithWindow}" Gesture="Ctrl+Shift+N" />
+        <KeyBinding Command="{Binding OpenFileCommand}" Gesture="Ctrl+O" />
+        <KeyBinding Command="{Binding OverwriteFileCommand}" Gesture="Ctrl+S" />
+        <KeyBinding Command="{Binding SaveFileCommand}" Gesture="Ctrl+Shift+S" />
+    </Window.InputBindings>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="ファイル(_F)">
-                <MenuItem Header="新規(_N)" Command="{Binding CreateNewFile}" />
-                <MenuItem Header="新しいウインドウ(_W)" Command="{Binding CreateNewFileWithWindow}" />
-                <MenuItem Header="開く(_O)..." Command="{Binding OpenFileCommand}" />
-                <MenuItem Header="上書き保存(_S)" Command="{Binding OverwriteFileCommand}" />
-                <MenuItem Header="名前を付けて保存(_A)..." Command="{Binding SaveFileCommand}" />
+                <MenuItem Header="新規(_N)" Command="{Binding CreateNewFile}" InputGestureText="Ctrl+N" />
+                <MenuItem Header="新しいウインドウ(_W)" Command="{Binding CreateNewFileWithWindow}" InputGestureText="Ctrl+Shift+N" />
+                <MenuItem Header="開く(_O)..." Command="{Binding OpenFileCommand}" InputGestureText="Ctrl+O" />
+                <MenuItem Header="上書き保存(_S)" Command="{Binding OverwriteFileCommand}" InputGestureText="Ctrl+S" />
+                <MenuItem Header="名前を付けて保存(_A)..." Command="{Binding SaveFileCommand}" InputGestureText="Ctrl+Shift+S" />
                 <Separator />
                 <MenuItem Header="終了(_X)" Command="{Binding ApplicationEndCommand}" />
             </MenuItem>
