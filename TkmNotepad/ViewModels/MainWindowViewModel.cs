@@ -123,23 +123,7 @@ namespace TkmNotepad.ViewModels
             {
               try
               {
-                var filePath = System.IO.Path.Combine(
-                  System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location),
-                  "Settings",
-                  "DesignSettings.yaml"
-                );
-
-                if (!System.IO.File.Exists(filePath))
-                {
-                  var serializer = new YamlDotNet.Serialization.SerializerBuilder().Build();
-                  var yamlString = serializer.Serialize(new DesignSettingsYamlObject());
-
-                  using (var stream = new StreamWriter(filePath, false, Encoding.UTF8))
-                  {
-                    stream.Write(yamlString);
-                  }
-                }
-
+                var filePath = this.GetDesignSettingsFilePath();
                 using (var stream = new System.IO.StreamReader(filePath, Encoding.UTF8))
                 {
                   var deserializer = new YamlDotNet.Serialization.DeserializerBuilder().Build();
@@ -252,6 +236,32 @@ namespace TkmNotepad.ViewModels
     #endregion
 
     #region Method
+    private string GetDesignSettingsFilePath()
+    {
+      var directoryPath = System.IO.Path.Combine(
+        System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location),
+        "Settings"
+      );
+
+      var filePath = System.IO.Path.Combine(
+        directoryPath,
+        "DesignSettings.yaml"
+      );
+
+      System.IO.Directory.CreateDirectory(directoryPath);
+      if (!System.IO.File.Exists(filePath))
+      {
+        var serializer = new YamlDotNet.Serialization.SerializerBuilder().Build();
+        var yamlString = serializer.Serialize(new DesignSettingsYamlObject());
+
+        using (var stream = new StreamWriter(filePath, false, Encoding.UTF8))
+        {
+          stream.Write(yamlString);
+        }
+      }
+
+      return filePath;
+    }
     #endregion
   }
 }
