@@ -70,14 +70,27 @@ namespace TkmNotepad.ViewModels
           _loadedCommand = new DelegateCommand(
             () =>
             {
-              this.Title = String.Format(
-                "{0} Ver.{1}",
-                System.IO.Path.GetFileNameWithoutExtension(this.GetType().Assembly.Location),
-                System.Reflection.Assembly.GetExecutingAssembly().GetName().Version
-              );
+              try
+              {
+                this.Title = String.Format(
+                  "{0} Ver.{1}",
+                  System.IO.Path.GetFileNameWithoutExtension(this.GetType().Assembly.Location),
+                  System.Reflection.Assembly.GetExecutingAssembly().GetName().Version
+                );
 
-              if (this.LoadDesignSettingsCommand.CanExecute())
-                this.LoadDesignSettingsCommand.Execute();
+                if (this.LoadDesignSettingsCommand.CanExecute())
+                  this.LoadDesignSettingsCommand.Execute();
+              }
+              catch (Exception e)
+              {
+                var msg = String.Format(
+                  "Failed to load design settings file, Exception={0}, InnerException={1}",
+                  e.Message, e.InnerException?.Message ?? "null"
+                );
+
+                System.Windows.MessageBox.Show(this.WindowObject, msg, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                System.Environment.Exit(1);
+              }
             }
           )
         );
@@ -93,6 +106,19 @@ namespace TkmNotepad.ViewModels
           _closedCommand = new DelegateCommand(
             () =>
             {
+              try
+              {
+              }
+              catch (Exception e)
+              {
+                var msg = String.Format(
+                  "Failed to load design settings file, Exception={0}, InnerException={1}",
+                  e.Message, e.InnerException?.Message ?? "null"
+                );
+
+                System.Windows.MessageBox.Show(this.WindowObject, msg, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                System.Environment.Exit(1);
+              }
             }
           )
         );
@@ -108,6 +134,19 @@ namespace TkmNotepad.ViewModels
           _closingCommand = new DelegateCommand(
             () =>
             {
+              try
+              {
+              }
+              catch (Exception e)
+              {
+                var msg = String.Format(
+                  "Failed to load design settings file, Exception={0}, InnerException={1}",
+                  e.Message, e.InnerException?.Message ?? "null"
+                );
+
+                System.Windows.MessageBox.Show(this.WindowObject, msg, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                System.Environment.Exit(1);
+              }
             }
           )
         );
@@ -123,6 +162,19 @@ namespace TkmNotepad.ViewModels
           _createNewFile = new DelegateCommand(
             () =>
             {
+              try
+              {
+              }
+              catch (Exception e)
+              {
+                var msg = String.Format(
+                  "Failed to load design settings file, Exception={0}, InnerException={1}",
+                  e.Message, e.InnerException?.Message ?? "null"
+                );
+
+                System.Windows.MessageBox.Show(this.WindowObject, msg, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                System.Environment.Exit(1);
+              }
             }
           )
         );
@@ -138,6 +190,19 @@ namespace TkmNotepad.ViewModels
           _createNewFileWithWindow = new DelegateCommand(
             () =>
             {
+              try
+              {
+              }
+              catch (Exception e)
+              {
+                var msg = String.Format(
+                  "Failed to load design settings file, Exception={0}, InnerException={1}",
+                  e.Message, e.InnerException?.Message ?? "null"
+                );
+
+                System.Windows.MessageBox.Show(this.WindowObject, msg, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                System.Environment.Exit(1);
+              }
             }
           )
         );
@@ -153,6 +218,19 @@ namespace TkmNotepad.ViewModels
           _openFileCommand = new DelegateCommand(
             () =>
             {
+              try
+              {
+              }
+              catch (Exception e)
+              {
+                var msg = String.Format(
+                  "Failed to load design settings file, Exception={0}, InnerException={1}",
+                  e.Message, e.InnerException?.Message ?? "null"
+                );
+
+                System.Windows.MessageBox.Show(this.WindowObject, msg, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                System.Environment.Exit(1);
+              }
             }
           )
         );
@@ -168,6 +246,19 @@ namespace TkmNotepad.ViewModels
           _overwriteFileCommand = new DelegateCommand(
             () =>
             {
+              try
+              {
+              }
+              catch (Exception e)
+              {
+                var msg = String.Format(
+                  "Failed to load design settings file, Exception={0}, InnerException={1}",
+                  e.Message, e.InnerException?.Message ?? "null"
+                );
+
+                System.Windows.MessageBox.Show(this.WindowObject, msg, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                System.Environment.Exit(1);
+              }
             }
           )
         );
@@ -183,6 +274,19 @@ namespace TkmNotepad.ViewModels
           _saveFileCommand = new DelegateCommand(
             () =>
             {
+              try
+              {
+              }
+              catch (Exception e)
+              {
+                var msg = String.Format(
+                  "Failed to load design settings file, Exception={0}, InnerException={1}",
+                  e.Message, e.InnerException?.Message ?? "null"
+                );
+
+                System.Windows.MessageBox.Show(this.WindowObject, msg, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                System.Environment.Exit(1);
+              }
             }
           )
         );
