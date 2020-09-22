@@ -48,14 +48,14 @@ namespace TkmNotepad.ViewModels
       set { SetProperty(ref _currentFileInfoViewModel, value); }
     }
 
-    private Window Owner { get; } = null;
+    private Window WindowObject { get; } = null;
     private DesignSettingsYamlObject DesignSettingsYamlObject { get; set; } = null;
     #endregion
 
     #region Constructor
-    public MainWindowViewModel(Window owner)
+    public MainWindowViewModel(Window window)
     {
-      this.Owner = owner;
+      this.WindowObject = window;
     }
     #endregion
 
@@ -235,7 +235,7 @@ namespace TkmNotepad.ViewModels
                   e.Message, e.InnerException?.Message ?? "null"
                 );
 
-                System.Windows.MessageBox.Show(this.Owner, msg, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                System.Windows.MessageBox.Show(this.WindowObject, msg, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 System.Environment.Exit(1);
               }
             }
@@ -264,7 +264,7 @@ namespace TkmNotepad.ViewModels
         if (this.CurrentFileInfoViewModel.IsTextChanged)
         {
           var r = System.Windows.MessageBox.Show(
-            this.Owner,
+            this.WindowObject,
             $"{this.CurrentFileInfoViewModel.FilePath}への変更内容を保存しますか？",
             "確認",
             MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.Yes
@@ -319,7 +319,7 @@ namespace TkmNotepad.ViewModels
           e.Message, e.InnerException?.Message ?? "null"
         );
 
-        System.Windows.MessageBox.Show(this.Owner, msg, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        System.Windows.MessageBox.Show(this.WindowObject, msg, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         System.Environment.Exit(1);
       }
     }
