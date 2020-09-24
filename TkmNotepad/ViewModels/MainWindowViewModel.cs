@@ -1,4 +1,5 @@
-﻿using Prism.Commands;
+﻿using Microsoft.Win32;
+using Prism.Commands;
 using Prism.Mvvm;
 using System;
 using System.IO;
@@ -84,7 +85,7 @@ namespace TkmNotepad.ViewModels
               catch (Exception e)
               {
                 var msg = String.Format(
-                  "Failed to load design settings file, Exception={0}, InnerException={1}",
+                  "Failed to loaded command, Exception={0}, InnerException={1}",
                   e.Message, e.InnerException?.Message ?? "null"
                 );
 
@@ -112,7 +113,7 @@ namespace TkmNotepad.ViewModels
               catch (Exception e)
               {
                 var msg = String.Format(
-                  "Failed to load design settings file, Exception={0}, InnerException={1}",
+                  "Failed to closed command, Exception={0}, InnerException={1}",
                   e.Message, e.InnerException?.Message ?? "null"
                 );
 
@@ -140,7 +141,7 @@ namespace TkmNotepad.ViewModels
               catch (Exception e)
               {
                 var msg = String.Format(
-                  "Failed to load design settings file, Exception={0}, InnerException={1}",
+                  "Failed to closing command, Exception={0}, InnerException={1}",
                   e.Message, e.InnerException?.Message ?? "null"
                 );
 
@@ -153,22 +154,27 @@ namespace TkmNotepad.ViewModels
       }
     }
 
-    private DelegateCommand _createNewFile;
-    public DelegateCommand CreateNewFile
+    private DelegateCommand _createNewFileCommand;
+    public DelegateCommand CreateNewFileCommand
     {
       get
       {
-        return _createNewFile ?? (
-          _createNewFile = new DelegateCommand(
+        return _createNewFileCommand ?? (
+          _createNewFileCommand = new DelegateCommand(
             () =>
             {
               try
               {
+                if (!this.ExistingTextEndProcess())
+                  return;
+
+                if (this.CurrentFileInfoViewModel.ClearCommand.CanExecute())
+                  this.CurrentFileInfoViewModel.ClearCommand.Execute();
               }
               catch (Exception e)
               {
                 var msg = String.Format(
-                  "Failed to load design settings file, Exception={0}, InnerException={1}",
+                  "Failed to create new file command, Exception={0}, InnerException={1}",
                   e.Message, e.InnerException?.Message ?? "null"
                 );
 
@@ -181,22 +187,23 @@ namespace TkmNotepad.ViewModels
       }
     }
 
-    private DelegateCommand _createNewFileWithWindow;
-    public DelegateCommand CreateNewFileWithWindow
+    private DelegateCommand _createNewFileWithWindowCommand;
+    public DelegateCommand CreateNewFileWithWindowCommand
     {
       get
       {
-        return _createNewFileWithWindow ?? (
-          _createNewFileWithWindow = new DelegateCommand(
+        return _createNewFileWithWindowCommand ?? (
+          _createNewFileWithWindowCommand = new DelegateCommand(
             () =>
             {
               try
               {
+                // 新しいウインドウで開く
               }
               catch (Exception e)
               {
                 var msg = String.Format(
-                  "Failed to load design settings file, Exception={0}, InnerException={1}",
+                  "Failed to create new file with window command, Exception={0}, InnerException={1}",
                   e.Message, e.InnerException?.Message ?? "null"
                 );
 
@@ -220,11 +227,29 @@ namespace TkmNotepad.ViewModels
             {
               try
               {
+                if (!this.ExistingTextEndProcess())
+                  return;
+
+                var dialog = new OpenFileDialog()
+                {
+                  Filter = "テキストファイル (*.txt)|*.txt|全てのファイル (*.*)|*.*",
+                  FileName = String.Empty,
+                };
+
+                if (dialog.ShowDialog() == true)
+                {
+                  var path = dialog.FileName;
+                  if (System.IO.File.Exists(path))
+                  {
+                    if (this.CurrentFileInfoViewModel.LoadCommand.CanExecute(path))
+                      this.CurrentFileInfoViewModel.LoadCommand.Execute(path);
+                  }
+                }
               }
               catch (Exception e)
               {
                 var msg = String.Format(
-                  "Failed to load design settings file, Exception={0}, InnerException={1}",
+                  "Failed to open file command, Exception={0}, InnerException={1}",
                   e.Message, e.InnerException?.Message ?? "null"
                 );
 
@@ -248,11 +273,23 @@ namespace TkmNotepad.ViewModels
             {
               try
               {
+                // 新規作成
+                if (String.IsNullOrEmpty(this.CurrentFileInfoViewModel.FilePath))
+                {
+                  if (this.SaveFileCommand.CanExecute())
+                    this.SaveFileCommand.Execute();
+                }
+                // 上書き
+                else
+                {
+                  if (this.CurrentFileInfoViewModel.OverwriteCommand.CanExecute())
+                    this.CurrentFileInfoViewModel.OverwriteCommand.Execute();
+                }
               }
               catch (Exception e)
               {
                 var msg = String.Format(
-                  "Failed to load design settings file, Exception={0}, InnerException={1}",
+                  "Failed to overwritefile command, Exception={0}, InnerException={1}",
                   e.Message, e.InnerException?.Message ?? "null"
                 );
 
@@ -276,11 +313,23 @@ namespace TkmNotepad.ViewModels
             {
               try
               {
+                var dialog = new SaveFileDialog()
+                {
+                  Filter = "テキストファイル (*.txt)|*.txt|全てのファイル (*.*)|*.*",
+                  FileName = String.Empty,
+                };
+
+                if (dialog.ShowDialog() == true)
+                {
+                  var path = dialog.FileName;
+                  if (this.CurrentFileInfoViewModel.SaveCommand.CanExecute(path))
+                    this.CurrentFileInfoViewModel.SaveCommand.Execute(path);
+                }
               }
               catch (Exception e)
               {
                 var msg = String.Format(
-                  "Failed to load design settings file, Exception={0}, InnerException={1}",
+                  "Failed to save file command, Exception={0}, InnerException={1}",
                   e.Message, e.InnerException?.Message ?? "null"
                 );
 
@@ -337,7 +386,7 @@ namespace TkmNotepad.ViewModels
               catch (Exception e)
               {
                 var msg = String.Format(
-                  "Failed to load design settings file, Exception={0}, InnerException={1}",
+                  "Failed to load design settings command, Exception={0}, InnerException={1}",
                   e.Message, e.InnerException?.Message ?? "null"
                 );
 
@@ -366,54 +415,9 @@ namespace TkmNotepad.ViewModels
         if (files.Count == 0)
           return;
 
-        // 変更確認
-        if (this.CurrentFileInfoViewModel.IsTextChanged)
-        {
-          var r = System.Windows.MessageBox.Show(
-            this.WindowObject,
-            $"{this.CurrentFileInfoViewModel.FilePath}への変更内容を保存しますか？",
-            "確認",
-            MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.Yes
-          );
+        if (!this.ExistingTextEndProcess())
+          return;
 
-          switch (r)
-          {
-            case MessageBoxResult.Yes:
-              {
-                // 新規作成
-                if (String.IsNullOrEmpty(this.CurrentFileInfoViewModel.FilePath))
-                {
-                  //
-                  //@ ダイアログ
-                  //
-                  //if (this.CurrentFileInfoViewModel.SaveCommand.CanExecute())
-                  //	this.CurrentFileInfoViewModel.SaveCommand.Execute();
-                }
-                // 上書き
-                else
-                {
-                  if (this.CurrentFileInfoViewModel.OverwriteCommand.CanExecute())
-                    this.CurrentFileInfoViewModel.OverwriteCommand.Execute();
-                }
-
-                break;
-              }
-
-            case MessageBoxResult.No:
-              {
-                // 無視
-                break;
-              }
-
-            default:
-              {
-                // キャンセル
-                return;
-              }
-          }
-        }
-
-        // 読み込み
         var file = files[0];
         if (this.CurrentFileInfoViewModel.LoadCommand.CanExecute(file))
           this.CurrentFileInfoViewModel.LoadCommand.Execute(file);
@@ -457,6 +461,68 @@ namespace TkmNotepad.ViewModels
       }
 
       return filePath;
+    }
+
+    private bool ExistingTextEndProcess()
+    {
+      if (this.CurrentFileInfoViewModel.IsTextChanged)
+      {
+        var r = System.Windows.MessageBox.Show(
+          this.WindowObject,
+          $"{this.CurrentFileInfoViewModel.FilePath}への変更内容を保存しますか？",
+          "確認",
+          MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.Yes
+        );
+
+        switch (r)
+        {
+          // 保存
+          case MessageBoxResult.Yes:
+            {
+              // 新規作成
+              if (String.IsNullOrEmpty(this.CurrentFileInfoViewModel.FilePath))
+              {
+                var dialog = new SaveFileDialog()
+                {
+                  Filter = "テキストファイル (*.txt)|*.txt|全てのファイル (*.*)|*.*",
+                  FileName = String.Empty,
+                };
+
+                if (dialog.ShowDialog() == false)
+                  return false;
+
+                var path = dialog.FileName;
+                if (this.CurrentFileInfoViewModel.SaveCommand.CanExecute(path))
+                  this.CurrentFileInfoViewModel.SaveCommand.Execute(path);
+
+                return true;
+              }
+              // 上書き
+              else
+              {
+                if (this.CurrentFileInfoViewModel.OverwriteCommand.CanExecute())
+                  this.CurrentFileInfoViewModel.OverwriteCommand.Execute();
+
+                return true;
+              }
+            }
+
+          // 無視
+          case MessageBoxResult.No:
+            {
+              return true;
+            }
+
+          // キャンセル
+          case MessageBoxResult.Cancel:
+          default:
+            {
+              return false;
+            }
+        }
+      }
+
+      return true;
     }
     #endregion
   }

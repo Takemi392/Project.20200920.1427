@@ -65,6 +65,9 @@ namespace TkmNotepad.ViewModels
 					_loadCommand = new DelegateCommand<string>(
 						(path) =>
 						{
+							if (this.ClearCommand.CanExecute())
+								this.ClearCommand.Execute();
+
 							var fullPath = System.IO.Path.GetFullPath(path);
 							using (var stream = new System.IO.StreamReader(fullPath, true))
 							{
@@ -131,6 +134,26 @@ namespace TkmNotepad.ViewModels
 						}
 					)
 					.ObservesProperty(() => this.FilePath)
+				);
+			}
+		}
+
+		private DelegateCommand _clearCommand;
+		public DelegateCommand ClearCommand
+		{
+			get
+			{
+				return _clearCommand ?? (
+					_clearCommand = new DelegateCommand(
+						() =>
+						{
+							this.FilePath = String.Empty;
+							this.CurrentEncoding = Encoding.UTF8;
+							this.CurrentText = String.Empty;
+							this.LastSavedText = String.Empty;
+							this.IsTextChanged = false;
+						}
+					)
 				);
 			}
 		}
