@@ -49,7 +49,7 @@
                  VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
                  VerticalContentAlignment="Top" HorizontalContentAlignment="Left"
                  VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible"
-                 Background="{Binding Background}" Foreground="{Binding FontColor}" FontSize="{Binding FontSize}"
+                 Background="{Binding TextAreaBackground}" Foreground="{Binding TextAreaFontColor}" FontSize="{Binding TextAreaFontSize}"
                  Text="{Binding CurrentFileInfoViewModel.CurrentText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}" />
     </DockPanel>

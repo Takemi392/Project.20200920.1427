@@ -22,25 +22,25 @@ namespace TkmNotepad.ViewModels
       set { SetProperty(ref _title, value); }
     }
 
-    private Brush _background;
-    public Brush Background
+    private Brush _textAreaBackground;
+    public Brush TextAreaBackground
     {
-      get { return _background; }
-      set { SetProperty(ref _background, value); }
+      get { return _textAreaBackground; }
+      set { SetProperty(ref _textAreaBackground, value); }
     }
 
-    private Brush _fontColor;
-    public Brush FontColor
+    private Brush _textAreaFontColor;
+    public Brush TextAreaFontColor
     {
-      get { return _fontColor; }
-      set { SetProperty(ref _fontColor, value); }
+      get { return _textAreaFontColor; }
+      set { SetProperty(ref _textAreaFontColor, value); }
     }
 
-    private int _fontSize;
-    public int FontSize
+    private int _textAreaFontSize;
+    public int TextAreaFontSize
     {
-      get { return _fontSize; }
-      set { SetProperty(ref _fontSize, value); }
+      get { return _textAreaFontSize; }
+      set { SetProperty(ref _textAreaFontSize, value); }
     }
 
     private FileInfoViewModel _currentFileInfoViewModel = new FileInfoViewModel();
@@ -379,9 +379,9 @@ namespace TkmNotepad.ViewModels
                 if (this.DesignSettingsYamlObject == null)
                   throw new Exception("DesignSettingsYamlObject == null");
 
-                this.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(this.DesignSettingsYamlObject.Background));
-                this.FontColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString(this.DesignSettingsYamlObject.FontColor));
-                this.FontSize = this.DesignSettingsYamlObject.FontSize;
+                this.TextAreaBackground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(this.DesignSettingsYamlObject.TextAreaDesignSettings.Background));
+                this.TextAreaFontColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString(this.DesignSettingsYamlObject.TextAreaDesignSettings.FontColor));
+                this.TextAreaFontSize = this.DesignSettingsYamlObject.TextAreaDesignSettings.FontSize;
               }
               catch (Exception e)
               {
