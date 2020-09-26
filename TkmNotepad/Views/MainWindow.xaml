@@ -8,6 +8,7 @@
         xmlns:dd="urn:gong-wpf-dragdrop"
         xmlns:l="clr-namespace:TkmNotepad"
         xmlns:v="clr-namespace:TkmNotepad.Views"
+        xmlns:m="clr-namespace:TkmNotepad.Models"
         xmlns:vm="clr-namespace:TkmNotepad.ViewModels"
         mc:Ignorable="d" d:DesignWidth="960" d:DesignHeight="540"
         d:DataContext="{d:DesignInstance vm:MainWindowViewModel}">
@@ -21,15 +22,15 @@
             </Style.Triggers>
         </Style>
     </Window.Style>
+    <i:Interaction.Behaviors>
+        <m:WindowClosingBehavior />
+    </i:Interaction.Behaviors>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
         </i:EventTrigger>
         <i:EventTrigger EventName="Closed">
             <i:InvokeCommandAction Command="{Binding ClosedCommand}" />
-        </i:EventTrigger>
-        <i:EventTrigger EventName="Closing">
-            <i:InvokeCommandAction Command="{Binding ClosingCommand}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Window.InputBindings>

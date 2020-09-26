@@ -65,6 +65,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\DesignSettingsYamlObject.cs" />
+    <Compile Include="Models\IClosing.cs" />
+    <Compile Include="Models\WindowClosingBehavior.cs" />
     <Compile Include="ViewModels\FileInfoViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">

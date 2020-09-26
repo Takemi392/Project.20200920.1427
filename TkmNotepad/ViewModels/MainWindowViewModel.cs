@@ -13,7 +13,7 @@ using TkmNotepad.Models;
 
 namespace TkmNotepad.ViewModels
 {
-  public class MainWindowViewModel : BindableBase, GongSolutions.Wpf.DragDrop.IDropTarget
+  public class MainWindowViewModel : BindableBase, GongSolutions.Wpf.DragDrop.IDropTarget, IClosing
   {
     #region Field / Property
     //private string _title = String.Empty;
@@ -69,6 +69,29 @@ namespace TkmNotepad.ViewModels
     }
     #endregion
 
+    #region IClosing
+    public bool OnClosing()
+    {
+      try
+      {
+        if (!this.ExistingTextEndProcess())
+          return true;
+      }
+      catch (Exception e)
+      {
+        var msg = String.Format(
+          "Failed to load file, Exception={0}, InnerException={1}",
+          e.Message, e.InnerException?.Message ?? "null"
+        );
+
+        System.Windows.MessageBox.Show(this.WindowObject, msg, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        System.Environment.Exit(1);
+      }
+
+      return false;
+    }
+    #endregion
+
     #region Command
     private DelegateCommand _loadedCommand;
     public DelegateCommand LoadedCommand
@@ -116,34 +139,6 @@ namespace TkmNotepad.ViewModels
               {
                 var msg = String.Format(
                   "Failed to closed command, Exception={0}, InnerException={1}",
-                  e.Message, e.InnerException?.Message ?? "null"
-                );
-
-                System.Windows.MessageBox.Show(this.WindowObject, msg, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                System.Environment.Exit(1);
-              }
-            }
-          )
-        );
-      }
-    }
-
-    private DelegateCommand _closingCommand;
-    public DelegateCommand ClosingCommand
-    {
-      get
-      {
-        return _closingCommand ?? (
-          _closingCommand = new DelegateCommand(
-            () =>
-            {
-              try
-              {
-              }
-              catch (Exception e)
-              {
-                var msg = String.Format(
-                  "Failed to closing command, Exception={0}, InnerException={1}",
                   e.Message, e.InnerException?.Message ?? "null"
                 );
 
