@@ -367,6 +367,34 @@ namespace TkmNotepad.ViewModels
       }
     }
 
+    private DelegateCommand _versionDisplayCommand;
+    public DelegateCommand VersionDisplayCommand
+    {
+      get
+      {
+        return _versionDisplayCommand ?? (
+          _versionDisplayCommand = new DelegateCommand(
+            () =>
+            {
+              try
+              {
+                var msg = String.Format(
+                  "{0} Ver.{1}",
+                  System.IO.Path.GetFileNameWithoutExtension(this.GetType().Assembly.Location),
+                  System.Reflection.Assembly.GetExecutingAssembly().GetName().Version
+                );
+
+                System.Windows.MessageBox.Show(this.WindowObject, msg, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+              }
+              catch (Exception)
+              {
+              }
+            }
+          )
+        );
+      }
+    }
+
     private DelegateCommand _loadDesignSettingsCommand;
     public DelegateCommand LoadDesignSettingsCommand
     {
