@@ -54,6 +54,14 @@
                 <MenuItem Header="バージョン情報(_A)" Command="{Binding VersionDisplayCommand}" />
             </MenuItem>
         </Menu>
+        <Grid DockPanel.Dock="Bottom">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            
+            <TextBlock Grid.Column="2" Margin="0,0,8,0" Text="{Binding CurrentFileInfoViewModel.CurrentEncoding.EncodingName}" />
+        </Grid>
         <TextBox DockPanel.Dock="Top" AcceptsReturn="True" AcceptsTab="True" TextWrapping="NoWrap"
                  VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
                  VerticalContentAlignment="Top" HorizontalContentAlignment="Left"
