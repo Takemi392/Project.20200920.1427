@@ -500,7 +500,10 @@ namespace TkmNotepad.ViewModels
       {
         var r = System.Windows.MessageBox.Show(
           this.WindowObject,
-          $"{this.CurrentFileInfoViewModel.FilePath}への変更内容を保存しますか？",
+          String.Format(
+            "{0}への変更内容を保存しますか？",
+            !String.IsNullOrEmpty(this.CurrentFileInfoViewModel.FilePath) ? this.CurrentFileInfoViewModel.FilePath : "無題"
+          ),
           "確認",
           MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.Yes
         );
