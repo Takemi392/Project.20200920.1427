@@ -16,12 +16,12 @@ namespace TkmNotepad.ViewModels
   public class MainWindowViewModel : BindableBase, GongSolutions.Wpf.DragDrop.IDropTarget
   {
     #region Field / Property
-    private string _title = String.Empty;
-    public string Title
-    {
-      get { return _title; }
-      set { SetProperty(ref _title, value); }
-    }
+    //private string _title = String.Empty;
+    //public string Title
+    //{
+    //  get { return _title; }
+    //  set { SetProperty(ref _title, value); }
+    //}
 
     private Brush _textAreaBackground;
     public Brush TextAreaBackground
@@ -74,12 +74,6 @@ namespace TkmNotepad.ViewModels
             {
               try
               {
-                this.Title = String.Format(
-                  "{0} Ver.{1}",
-                  System.IO.Path.GetFileNameWithoutExtension(this.GetType().Assembly.Location),
-                  System.Reflection.Assembly.GetExecutingAssembly().GetName().Version
-                );
-
                 if (this.LoadDesignSettingsCommand.CanExecute())
                   this.LoadDesignSettingsCommand.Execute();
               }
