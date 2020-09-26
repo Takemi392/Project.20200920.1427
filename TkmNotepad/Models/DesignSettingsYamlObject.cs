@@ -16,7 +16,10 @@ namespace TkmNotepad.Models
       public string FontColor { get; set; } = "#00AA00";
 
       [YamlDotNet.Serialization.YamlMember(Alias = "FontSize")]
-      public int FontSize { get; set; } = 12;
+      public double FontSize { get; set; } = 16.0;
+
+      [YamlDotNet.Serialization.YamlMember(Alias = "FontFamily")]
+      public string FontFamily { get; set; } = "Consolas";
     }
   }
 }

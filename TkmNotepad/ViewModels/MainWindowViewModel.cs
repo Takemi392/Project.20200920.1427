@@ -37,11 +37,18 @@ namespace TkmNotepad.ViewModels
       set { SetProperty(ref _textAreaFontColor, value); }
     }
 
-    private int _textAreaFontSize;
-    public int TextAreaFontSize
+    private double _textAreaFontSize = 16;
+    public double TextAreaFontSize
     {
       get { return _textAreaFontSize; }
       set { SetProperty(ref _textAreaFontSize, value); }
+    }
+
+    private FontFamily _textAreaFontFamily = new FontFamily("Consolas");
+    public FontFamily TextAreaFontFamily
+    {
+      get { return _textAreaFontFamily; }
+      set { SetProperty(ref _textAreaFontFamily, value); }
     }
 
     private FileInfoViewModel _currentFileInfoViewModel = new FileInfoViewModel();
@@ -413,6 +420,7 @@ namespace TkmNotepad.ViewModels
                 this.TextAreaBackground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(this.DesignSettingsYamlObject.TextAreaDesignSettings.Background));
                 this.TextAreaFontColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString(this.DesignSettingsYamlObject.TextAreaDesignSettings.FontColor));
                 this.TextAreaFontSize = this.DesignSettingsYamlObject.TextAreaDesignSettings.FontSize;
+                this.TextAreaFontFamily = new FontFamily(this.DesignSettingsYamlObject.TextAreaDesignSettings.FontFamily);
               }
               catch (Exception e)
               {
