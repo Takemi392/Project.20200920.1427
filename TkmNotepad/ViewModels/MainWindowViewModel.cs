@@ -2,6 +2,7 @@
 using Prism.Commands;
 using Prism.Mvvm;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -198,7 +199,15 @@ namespace TkmNotepad.ViewModels
             {
               try
               {
-                // 新しいウインドウで開く
+                var process = new System.Diagnostics.Process()
+                {
+                  StartInfo = new System.Diagnostics.ProcessStartInfo()
+                  {
+                    FileName = System.Reflection.Assembly.GetExecutingAssembly().Location,
+                  },
+                };
+
+                process.Start();
               }
               catch (Exception e)
               {
