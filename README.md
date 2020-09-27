@@ -2,12 +2,12 @@
 自作メモ帳
 
 ## Description
-自分用のメモ帳です。簡易実装しか出来てないのにもう飽きてる。
+自分用のメモ帳です。簡易実装しか出来てないのに作るの飽きてきた。
 
 ## Development
 + Windows 10 Pro
 + Visual Studio 2019
-+ .Net 4.8
++ .Net Framework 4.8
 
 ## Install
 任意のフォルダにZipファイルを展開する。
@@ -93,4 +93,4 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ## LastUpdated
-2020/09/27 04:45
+2020/09/27 14:00
